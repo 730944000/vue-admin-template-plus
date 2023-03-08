@@ -13,10 +13,11 @@
             <navbar />
           </div>
           <app-main />
-
         </div>
       </div>
-      <Home v-else />
+      <div v-else class="app-wrapper" :class="classObj" style="height:100vh;">
+        <Home />
+      </div>
     </main>
 
   </div>

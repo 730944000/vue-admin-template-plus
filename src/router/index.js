@@ -64,48 +64,50 @@ export const constantRoutes = [
     meta: { title: '404', module: 0 }
   },
 
+  /* 模块1路由 */
   {
-    path: '/example1',
-    name: 'Example1',
-    redirect: '/example1-1',
+    path: '/fileread',
+    name: 'Module1',
+    redirect: '/fileread/filereadexp',
     component: Layout,
     meta: { module: 1, isFirst: true },
     children: [{
-      name: '/example1-1',
-      path: '/example1-1',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Example1-1', icon: 'dashboard' }
+      name: '/Filereadexp',
+      path: 'filereadexp',
+      component: () => import('@/views/filereadexp/index'),
+      meta: { title: '文件读取示例', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example2',
+    path: '/3D',
     component: Layout,
-    name: 'Example2',
-    meta: { title: 'Example2', icon: 'el-icon-s-help', module: 1 },
+    meta: { title: '3D与可视化', icon: 'el-icon-s-help', module: 1 },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'three',
+        name: 'Three',
+        component: () => import('@/views/three/index'),
+        meta: { title: 'Three.js案例', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'map',
+        name: 'Map',
+        component: () => import('@/views/map/index'),
+        meta: { title: '百度地图案例', icon: 'tree' }
       }
     ]
   },
 
+  /* 模块2路由 */
+
   {
-    path: '/nested',
+    path: '/routerexp',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+    name: 'ROUTEREXP',
+    redirect: '/routerexp/menu1/menu1-1',
     meta: {
-      title: 'Nested',
+      title: '路由嵌套案例',
       icon: 'nested',
       module: 2,
       isFirst: true
@@ -115,40 +117,33 @@ export const constantRoutes = [
         path: 'menu1',
         component: () => import('@/views/nested/menu1/index'), // Parent router-view
         name: 'Menu1',
-        redirect: '/nested/menu1/menu1-1',
-        meta: { title: 'Menu1' },
+        meta: { title: '菜单1' },
         children: [
           {
             path: 'menu1-1',
             component: () => import('@/views/nested/menu1/menu1-1'),
             name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
+            meta: { title: '菜单1-1' }
           },
           {
             path: 'menu1-2',
             component: () => import('@/views/nested/menu1/menu1-2'),
             name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
+            meta: { title: '菜单1-2' },
             children: [
               {
                 path: 'menu1-2-1',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
                 name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
+                meta: { title: '菜单1-2-1' }
               },
               {
                 path: 'menu1-2-2',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
                 name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
+                meta: { title: '菜单1-2-2' }
               }
             ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
           }
         ]
       },
@@ -156,22 +151,22 @@ export const constantRoutes = [
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
         name: 'Menu2',
-        meta: { title: 'menu2' }
+        meta: { title: '菜单2' }
       }
     ]
   },
 
   {
     path: '/video',
-    name: 'Video',
+    name: 'VEDIOEXP',
     component: Layout,
     meta: { module: 2 },
     children: [
       {
-        path: '/index',
+        path: 'index',
         name: 'Video',
         component: () => import('@/views/video/index'),
-        meta: { title: 'Video', icon: 'form' }
+        meta: { title: '视频案例', icon: 'el-icon-video-camera-solid' }
       }
     ]
   }

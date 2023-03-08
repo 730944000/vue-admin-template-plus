@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    <img :src="require('@/assets/img/home.jpg')" mode="scaleToFill">
-  </div>
+  <div />
 </template>
 
 <script>
@@ -10,7 +8,8 @@ export default {
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+    }
   },
   computed: {},
   watch: {},
@@ -20,10 +19,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.home {
-  img {
-    width: 100% !important;
-    height: 100% !important;
-  }
-}
 </style>

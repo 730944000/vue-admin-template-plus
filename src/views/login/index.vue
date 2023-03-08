@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="bg" style="z-index:-1;position:relative;"><canvas id="canvas" /></div>
+    <div id="bg" style="z-index: -1; position: relative"><canvas id="canvas" /></div>
 
     <div class="login-container">
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
@@ -50,10 +50,11 @@
         <div class="tips">
           <!-- <span style="margin-right: 20px">username: admin</span>
           <span> password: any</span> -->
+          <svg-icon icon-class="QQ" />
+          <svg-icon icon-class="WX" />
         </div>
       </el-form>
     </div>
-
   </div>
 </template>
 
@@ -108,14 +109,13 @@ export default {
       this.canvas = document.getElementById('canvas')
       var canvas = this.canvas
       var ctx = canvas.getContext('2d')
-      console.log(w, h)
-      var w = canvas.width = window.innerWidth
-      var h = canvas.height = window.innerHeight
+      var w = (canvas.width = window.innerWidth)
+      var h = (canvas.height = window.innerHeight)
 
       var hue = 217
       var stars = []
       var count = 0
-      var maxStars = 1500// 星星数量
+      var maxStars = 1500 // 星星数量
 
       var canvas2 = document.createElement('canvas')
       var ctx2 = canvas2.getContext('2d')
@@ -288,13 +288,14 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
+@import '../../styles/login/login.scss';
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 
 .login-container {
   position: absolute;
-  top:0;
+  top: 0;
   min-height: 100%;
   width: 100%;
   // background-color: $bg;
@@ -304,19 +305,21 @@ $light_gray: #eee;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 200px 35px 0;
+    padding: 250px 35px 0;
     margin: 0 auto;
     overflow: hidden;
   }
 
   .tips {
-    font-size: 14px;
+    display: flex;
+    font-size: 28px;
     color: #fff;
     margin-bottom: 10px;
-
-    span {
+    justify-content: end;
+    .svg-icon {
+      cursor: pointer !important;
       &:first-of-type {
-        margin-right: 16px;
+        margin-right: 14px;
       }
     }
   }

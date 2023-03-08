@@ -9,9 +9,7 @@
           :class="['nav-box-item', { active: idx == item.index }]"
           @click="changeIdx(index)"
         >
-          <router-link :to="item.path">
-            {{ item.value }}
-          </router-link>
+          {{ item.value }}
         </div>
       </div>
       <div class="right-menu">
@@ -24,11 +22,8 @@
             <router-link to="/">
               <el-dropdown-item @click.native="toHome"> Home </el-dropdown-item>
             </router-link>
-            <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+            <a target="_blank" href="https://github.com/730944000/vue-admin-template-plus">
               <el-dropdown-item>Github</el-dropdown-item>
-            </a>
-            <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-              <el-dropdown-item>Docs</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click.native="logout">
               <span style="display: block">Log Out</span>
@@ -54,9 +49,10 @@ export default {
       idx: 0,
       navList: [
         { index: 0, path: '/home', value: '首页' },
-        { index: 1, path: '/example1', value: '模块1' },
-        { index: 2, path: '/nested', value: '模块2' }
-      ]
+        { index: 1, path: '/fileread', value: '模块1' },
+        { index: 2, path: '/routerexp', value: '模块2' }
+      ],
+      routes: [] // 侧边栏路由
     }
   },
   computed: {
@@ -66,31 +62,48 @@ export default {
     }
   },
   watch: {},
-  created() {
+  async created() {
+    // 页面刷新后重定向到当前路由
+    const currentRouteNode = this.$route.matched[0]
+    console.log(currentRouteNode.meta.module)
+    if (currentRouteNode) {
+      this.idx = currentRouteNode.meta.module
+      this.resetSiderRoutes()
+    }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
-    async toHome() {
-      await this.$store.dispatch('app/changeNavIdx', 0)
+    toHome() {
+      this.idx = 0
+      this.$store.dispatch('app/changeNavIdx', 0)
     },
     async logout() {
       await this.$store.dispatch('user/logout')
       await this.$store.dispatch('app/changeNavIdx', 0)
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
-    async changeIdx(index) {
+    changeIdx(index) {
       this.idx = index
-      const routes = this.$router.options.routes.filter((e) => {
-        return e.meta.module === this.idx || e.meta.module === 0
-      })
-      routes.forEach((e) => {
+      this.resetSiderRoutes()
+      if (this.idx === 0) {
+        this.$router.push('/home')
+      }
+      this.routes.forEach((e) => {
         if (e?.redirect && e.meta?.isFirst) {
           this.$router.push(e.path)
         }
       })
-      resetRouter()
+    },
+    // 更新侧边栏路由
+    async resetSiderRoutes() {
+      this.routes = this.$router.options.routes.filter((e) => {
+        return e.meta.module === this.idx || e.meta.module === 0
+      })
+      // 通知布局改变，为0时无侧边栏
       await this.$store.dispatch('app/changeNavIdx', this.idx)
-      await this.$store.dispatch('app/changeNavList', routes)
+      // 改变子模块的路由
+      await this.$store.dispatch('app/changeNavList', this.routes)
     }
   }
 }
